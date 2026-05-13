@@ -35,26 +35,26 @@ A full-stack team task management application with role-based access control (RB
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    Frontend (Vanilla JS SPA)                 │
+│                    Frontend (Vanilla JS SPA)                │
 │                                                             │
-│   index.html ──▶ app.js (Hash Router)                       │
-│                    ├── auth.js      (Login / Signup)         │
-│                    ├── dashboard.js (Stats & Overview)       │
-│                    ├── projects.js  (Project & Members)      │
-│                    └── tasks.js     (Kanban Board)           │
+│   index.html ──▶ app.js (Hash Router)                      │
+│                    ├── auth.js      (Login / Signup)        │
+│                    ├── dashboard.js (Stats & Overview)      │
+│                    ├── projects.js  (Project & Members)     │
+│                    └── tasks.js     (Kanban Board)          │
 │                                                             │
-│   api.js ── Fetch wrapper with JWT token injection           │
-│   styles.css ── Design system (CSS variables, dark theme)    │
+│   api.js ── Fetch wrapper with JWT token injection          │
+│   styles.css ── Design system (CSS variables, dark theme)   │
 └──────────────────────────┬──────────────────────────────────┘
                            │ REST API + JWT
                            ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                    Backend (Express.js)                      │
+│                    Backend (Express.js)                     │
 │                                                             │
-│   server.js ──▶ Middleware Chain:                            │
-│                  1. authMiddleware (JWT verify)              │
-│                  2. projectMemberMiddleware (membership)     │
-│                  3. roleMiddleware (ADMIN / MEMBER)          │
+│   server.js ──▶ Middleware Chain:                          │
+│                  1. authMiddleware (JWT verify)             │
+│                  2. projectMemberMiddleware (membership)    │
+│                  3. roleMiddleware (ADMIN / MEMBER)         │
 │                                                             │
 │   Routes:                                                   │
 │     /api/auth       ── Signup, Login, Profile               │
@@ -65,14 +65,14 @@ A full-stack team task management application with role-based access control (RB
 │                                                             │
 │   Models (Mongoose):                                        │
 │     User ──┐                                                │
-│             ├── ProjectMember (role: ADMIN | MEMBER)         │
+│             ├── ProjectMember (role: ADMIN | MEMBER)        │
 │     Project ┘         │                                     │
 │                       └── Task (status, priority, assignee) │
 └──────────────────────────┬──────────────────────────────────┘
                            │ Mongoose ODM
                            ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                    MongoDB Atlas (Cloud)                     │
+│                    MongoDB Atlas (Cloud)                    │
 │                                                             │
 │   Collections: users, projects, projectmembers, tasks       │
 │   Indexes: project+status, assignee+status, unique email    │
@@ -179,7 +179,7 @@ User Action ──▶ Authenticated? ──No──▶ 401 Unauthorized
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/team-task-manager.git
+git clone https://github.com/sspabhishek/team-task-manager.git
 cd team-task-manager
 
 # Install dependencies
@@ -247,55 +247,3 @@ npm run dev
 |--------|----------|-------------|------|
 | GET | `/api/dashboard` | Aggregated stats | ✅ |
 
----
-
-## 🚂 Railway Deployment
-
-### Step 1: Push to GitHub
-```bash
-git init
-git add .
-git commit -m "TaskFlow - Team Task Manager"
-git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/team-task-manager.git
-git push -u origin main
-```
-
-### Step 2: Deploy on Railway
-1. Go to [railway.app](https://railway.app) → Sign in with GitHub
-2. Click **New Project** → **Deploy from GitHub Repo**
-3. Select your repository
-
-### Step 3: Set Environment Variables
-In Railway → Service → **Variables** tab:
-
-| Variable | Value |
-|----------|-------|
-| `MONGODB_URI` | Your MongoDB Atlas connection string |
-| `JWT_SECRET` | Any strong random string |
-
-> `PORT` is automatically set by Railway — no need to configure it.
-
-### Step 4: Go Live
-- Railway auto-deploys on every push to `main`
-- Click **Generate Domain** to get your public URL
-- Visit `https://your-app.up.railway.app` to verify
-
-> ⚠️ **Important**: Ensure MongoDB Atlas Network Access allows `0.0.0.0/0` so Railway servers can connect.
-
----
-
-## 📝 Key Design Decisions
-
-1. **Single-Service Architecture** — Frontend and API bundled together for simple deployment
-2. **Hash-Based Routing** — SPA navigation without a build step (`#/dashboard`, `#/projects`)
-3. **Mongoose over Prisma** — Better flexibility with MongoDB, no migration step needed
-4. **Google DNS Workaround** — `dns.setServers(['8.8.8.8'])` to resolve MongoDB Atlas SRV records on networks with restrictive DNS
-5. **Manual Cascade Deletes** — Deleting a project also removes its tasks and members
-6. **Three-Layer Middleware** — Auth → Membership → Role check for clean, composable access control
-
----
-
-## 📄 License
-
-ISC
