@@ -1,0 +1,28 @@
+{
+  "name": "team-task-manager",
+  "version": "1.0.0",
+  "description": "Full-stack team task manager with role-based access control",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node src/server.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "task-manager",
+    "project-management",
+    "team-collaboration"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.6.2"
+  }
+}
