@@ -11,7 +11,7 @@
  * - Graceful degradation if API key is missing or API is unreachable
  */
 
-const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
+const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent';
 
 /**
  * Build a structured prompt from analytics data for the Gemini model.
@@ -64,7 +64,7 @@ async function generateProductivitySummary(analytics) {
         contents: [{ parts: [{ text: prompt }] }],
         generationConfig: {
           temperature: 0.7,
-          maxOutputTokens: 512,
+          maxOutputTokens: 2048,
           topP: 0.9
         }
       })

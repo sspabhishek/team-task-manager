@@ -165,6 +165,14 @@ router.get('/daily-report', async (req, res) => {
 // ============================================================
 router.post('/ai-summary', async (req, res) => {
   try {
+    // Guard against missing or non-JSON body
+    if (!req.body || typeof req.body !== 'object') {
+      return res.status(400).json({
+        success: false,
+        error: 'Request body must be JSON. Set Content-Type: application/json'
+      });
+    }
+
     const { analytics } = req.body;
 
     // Validate input — analytics object must be provided
