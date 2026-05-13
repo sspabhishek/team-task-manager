@@ -9,6 +9,7 @@ const projectRoutes = require('./routes/projects');
 const memberRoutes = require('./routes/members');
 const taskRoutes = require('./routes/tasks');
 const dashboardRoutes = require('./routes/dashboard');
+const automationRoutes = require('./routes/automation');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -35,6 +36,7 @@ app.use('/api/projects', projectRoutes);
 app.use('/api/projects/:id/members', memberRoutes);
 app.use('/api/projects/:id/tasks', taskRoutes);
 app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/automation', automationRoutes);
 
 // SPA fallback
 app.get('/{*splat}', (req, res) => {
